@@ -37,6 +37,15 @@ const getEntries = async( res: NextApiResponse<Data> ) => {
 
 const postEntry = async( req: NextApiRequest, res: NextApiResponse<Data> ) => {
 
+    res.setHeader('Access-Control-Allow-Credentials', "true")
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    // another common pattern
+    // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    )
 
     const { 
         nombre = '',
@@ -60,7 +69,7 @@ const postEntry = async( req: NextApiRequest, res: NextApiResponse<Data> ) => {
         await newEntry.save();
         await db.disconnect();
 
-        return res.status(201).json( newEntry );
+        return res.status(200).json( newEntry );
         
     } catch (error) {
         await db.disconnect();
