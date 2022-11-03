@@ -7,7 +7,7 @@ import NextCors from 'nextjs-cors';
 
 
 type Data = 
-    | { message: string }
+    | { message: any }
     | IEntry[]
     | IEntry
 
@@ -81,7 +81,7 @@ async function handlertest(req: NextApiRequest, res: NextApiResponse<Data>) {
     } catch (error) {
         await db.disconnect();
         console.log(error);
-        return res.status(500).json({ message: 'Algo salio mal, revisar consola del servidor' });
+        return res.status(500).json({ message: error });
     }
 
  }
