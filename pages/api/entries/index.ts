@@ -64,13 +64,15 @@ async function handlertest(req: NextApiRequest, res: NextApiResponse<Data>) {
     try {
         // Parse a JSON
         obj = JSON.parse(req.body);
-        console.log({ obj })
+        //console.log({ obj })
 
     } catch (e) {
         // You can read e for more info
         // Let's assume the error is that we already have parsed the payload
         // So just return that
-        obj = req.body;
+        console.log(req.body)
+        obj = JSON.parse(JSON.stringify(req.body));
+        //obj = req.body;
     }
 
 
