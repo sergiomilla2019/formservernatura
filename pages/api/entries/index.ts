@@ -1,7 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { db } from '../../../database';
 import { Entry, IEntry } from '../../../models';
-;
+import NextCors from 'nextjs-cors';
+
+
 
 
 type Data = 
@@ -16,7 +18,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
             return getEntries( res );
 
         case 'POST':
-            return postEntry( req, res );
+            return handlertest( req, res );
         
     
         default:
@@ -35,13 +37,62 @@ const getEntries = async( res: NextApiResponse<Data> ) => {
 }
 
 
+async function handlertest(req: NextApiRequest, res: NextApiResponse<Data>) {
+    // Run the cors middleware
+    // nextjs-cors uses the cors package, so we invite you to check the documentation https://github.com/expressjs/cors
+    await NextCors(req, res, {
+       // Options
+       methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+       origin: '*',
+       optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    });
+ 
+    // Rest of the API logic
+    //res.json({ message: 'Hello NextJs Cors!' });
+
+    const obj = JSON.parse(req.body);
+    const { 
+        nombre = '',
+        apellido = '',
+        email = '',
+        description = 'Description'
+     } = obj;
+
+     
+     console.log(JSON.parse(req.body))
+
+    const newEntry = new Entry({
+        nombre,
+        apellido,
+        email,
+        description,
+        createdAt: Date.now(),
+    });
+
+    console.log({ newEntry })
+    try {
+        
+        await db.connect();
+        await newEntry.save();
+        await db.disconnect();
+
+        return res.status(200).json( newEntry );
+        
+    } catch (error) {
+        await db.disconnect();
+        console.log(error);
+        return res.status(500).json({ message: 'Algo salio mal, revisar consola del servidor' });
+    }
+
+ }
+
 const postEntry = async( req: NextApiRequest, res: NextApiResponse<Data> ) => {
 
     const { 
         nombre = '',
         apellido = '',
         email = '',
-        description = ''
+        description = 'Description'
      } = req.body;
 
     const newEntry = new Entry({
