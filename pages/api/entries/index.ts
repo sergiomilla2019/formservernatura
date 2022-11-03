@@ -50,22 +50,39 @@ async function handlertest(req: NextApiRequest, res: NextApiResponse<Data>) {
     // Rest of the API logic
     //res.json({ message: 'Hello NextJs Cors!' });
 
-    const obj = JSON.parse(req.body);
-    const { 
-        nombre = '',
-        apellido = '',
-        email = '',
-        description = 'Description'
-     } = obj;
+    //if(JSON.parse(req.body)){
+
+    //}
+
+    let obj = { 
+        nombre: '',
+        apellido: '',
+        email: '',
+        description: 'Description'
+     };
+
+    try {
+        // Parse a JSON
+        obj = JSON.parse(req.body);
+        console.log({ obj })
+
+    } catch (e) {
+        // You can read e for more info
+        // Let's assume the error is that we already have parsed the payload
+        // So just return that
+        obj = req.body;
+    }
+
+
+    //const obj = JSON.parse(JSON.stringify(req.body)) ;
+    //const obj = {};
 
      
-     console.log(JSON.parse(req.body))
-
     const newEntry = new Entry({
-        nombre,
-        apellido,
-        email,
-        description,
+        nombre: obj?.nombre,
+        apellido: obj?.apellido,
+        email: obj?.email,
+        description: 'Description',
         createdAt: Date.now(),
     });
 
