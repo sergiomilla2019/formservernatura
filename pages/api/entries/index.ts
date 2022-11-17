@@ -102,7 +102,7 @@ async function handlertest(req: NextApiRequest, res: NextApiResponse) {
         
         await db.connect();
         await newEntry.save();
-        await db.disconnect();
+        //await db.disconnect();
 
         //Router.push("/thanks");
         //res.redirect("/thanks");
@@ -115,7 +115,7 @@ async function handlertest(req: NextApiRequest, res: NextApiResponse) {
         
         
     } catch (error) {
-        await db.disconnect();
+        //await db.disconnect();
         console.log(error, "<--error--");
         return res.status(500).json({ message: error });
     }
