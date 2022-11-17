@@ -8,7 +8,10 @@ const entrySchema = new Schema({
     nombre: { type: String },
     apellido: { type: String },
     email: { type: String },
-    description: { type: String, required: true },
+    fecha: { type: Date },
+    check1: { type: String },
+    check2: { type: String },
+    site: { type: String, required: true },
     createdAt: { type: Number },
     status: {
         type: String,

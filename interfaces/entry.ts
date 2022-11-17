@@ -6,7 +6,10 @@ export interface Entry {
     nombre: string;
     apellido: string;
     email: string;
-    description: string;
+    fecha: Date;
+    check1: String;
+    check2: String;
+    site: string;
     createdAt: number;
     status: EntryStatus;
 }

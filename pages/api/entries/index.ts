@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { db } from '../../../database';
 import { Entry, IEntry } from '../../../models';
 import NextCors from 'nextjs-cors';
+import Router from 'next/router';
 
 
 
@@ -54,11 +55,16 @@ async function handlertest(req: NextApiRequest, res: NextApiResponse<Data>) {
 
     //}
 
+    console.log(req.body)
+
     let obj = { 
         nombre: '',
         apellido: '',
         email: '',
-        description: 'Description'
+        fecha: '2022-11-08',
+        check1: '',
+        check2: '',
+        site: ''
      };
 
     try {
@@ -70,7 +76,7 @@ async function handlertest(req: NextApiRequest, res: NextApiResponse<Data>) {
         // You can read e for more info
         // Let's assume the error is that we already have parsed the payload
         // So just return that
-        console.log(req.body)
+        //console.log(req.body)
         obj = JSON.parse(JSON.stringify(req.body));
         //obj = req.body;
     }
@@ -84,17 +90,22 @@ async function handlertest(req: NextApiRequest, res: NextApiResponse<Data>) {
         nombre: obj?.nombre,
         apellido: obj?.apellido,
         email: obj?.email,
-        description: 'Description',
+        fecha: obj?.fecha,
+        check1: obj?.check1,
+        check2: obj?.check2,
+        site: obj?.site,
         createdAt: Date.now(),
     });
 
-    console.log({ newEntry })
+    //console.log({ newEntry })
     try {
         
         await db.connect();
         await newEntry.save();
         await db.disconnect();
 
+        //Router.push("/thanks");
+        res.redirect("/thanks");
         return res.status(200).json( newEntry );
         
     } catch (error) {
