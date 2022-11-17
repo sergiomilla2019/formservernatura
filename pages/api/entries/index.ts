@@ -106,7 +106,9 @@ async function handlertest(req: NextApiRequest, res: NextApiResponse) {
 
         //Router.push("/thanks");
         //res.redirect("/thanks");
-        return res.redirect(307, '/thanks')
+        //res.end('ok')
+        return res.redirect(302, '/thanks')
+        
         //res.status(200).json( newEntry );
         //res.send('Gracias por completar el formulario')
         //return res.status(200).json( newEntry );
@@ -114,7 +116,7 @@ async function handlertest(req: NextApiRequest, res: NextApiResponse) {
         
     } catch (error) {
         await db.disconnect();
-        console.log(error);
+        console.log(error, "<--error--");
         return res.status(500).json({ message: error });
     }
 
