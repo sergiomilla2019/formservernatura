@@ -102,7 +102,7 @@ async function handlertest(req: NextApiRequest, res: NextApiResponse) {
         
         await db.connect();
         await newEntry.save();
-        await db.disconnect();
+        //await db.disconnect();
 
         //Router.push("/thanks");
         res.redirect("/thanks");
