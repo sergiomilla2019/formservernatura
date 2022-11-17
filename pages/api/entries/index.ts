@@ -105,7 +105,8 @@ async function handlertest(req: NextApiRequest, res: NextApiResponse) {
         //await db.disconnect();
 
         //Router.push("/thanks");
-        res.redirect("/thanks");
+        //res.redirect("/thanks");
+        return res.redirect(307, '/thanks')
         //res.status(200).json( newEntry );
         //res.send('Gracias por completar el formulario')
         //return res.status(200).json( newEntry );
