@@ -106,6 +106,7 @@ async function handlertest(req: NextApiRequest, res: NextApiResponse) {
 
         //Router.push("/thanks");
         res.redirect("/thanks");
+        //res.status(200).json( newEntry );
         //res.send('Gracias por completar el formulario')
         //return res.status(200).json( newEntry );
         
