@@ -61,12 +61,12 @@ const updateEntry = async( req: NextApiRequest, res: NextApiResponse<Data> ) => 
     }
 
     const {
-        description = entryToUpdate.description,
+        //description = entryToUpdate.description,
         status = entryToUpdate.status,
     } = req.body;
 
     try {
-        const updatedEntry = await Entry.findByIdAndUpdate( id, { description, status }, { runValidators: true, new: true });
+        const updatedEntry = await Entry.findByIdAndUpdate( id, { status }, { runValidators: true, new: true });
         await db.disconnect();
         res.status(200).json( updatedEntry! );
         
