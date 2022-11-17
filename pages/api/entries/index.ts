@@ -38,7 +38,7 @@ const getEntries = async( res: NextApiResponse<Data> ) => {
 }
 
 
-async function handlertest(req: NextApiRequest, res: NextApiResponse<Data>) {
+async function handlertest(req: NextApiRequest, res: NextApiResponse) {
     // Run the cors middleware
     // nextjs-cors uses the cors package, so we invite you to check the documentation https://github.com/expressjs/cors
     await NextCors(req, res, {
@@ -106,7 +106,9 @@ async function handlertest(req: NextApiRequest, res: NextApiResponse<Data>) {
 
         //Router.push("/thanks");
         res.redirect("/thanks");
-        return res.status(200).json( newEntry );
+        //res.send('Gracias por completar el formulario')
+        //return res.status(200).json( newEntry );
+        
         
     } catch (error) {
         await db.disconnect();
