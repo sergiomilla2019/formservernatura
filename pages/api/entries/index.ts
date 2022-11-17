@@ -106,7 +106,7 @@ async function handlertest(req: NextApiRequest, res: NextApiResponse<Data>) {
 
         //Router.push("/thanks");
         res.redirect("/thanks");
-        //return res.status(200).json( newEntry );
+        return res.status(200).json( newEntry );
         
     } catch (error) {
         await db.disconnect();
